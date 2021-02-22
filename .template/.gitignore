@@ -2,7 +2,7 @@
 target/
 
 # CLion
-.idea/
+../.idea/
 
 # Scripts
 .setup

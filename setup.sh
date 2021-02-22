@@ -1,31 +1,24 @@
 #!/bin/sh
 
-if ! type "cargo" 2>&1 /dev/null 2>&1; then
-  echo "cargo command not found"
-  while true; do
-    read -rp "Do you wish to install rust from rustup.rs? y/n" yn
-    case $yn in
-        [Yy]* ) curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh; break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-  done
-fi
-cargo fetch # fetch rust dependencies
+__validate() {
+  [[ "$1" =~ ^[a-z]([a-z0-9]|-+[a-z0-9])*$ ]] && return 0 || return 1
+}
 
-pushd js
-if ! type "yarn" 2>&1 /dev/null 2>&1; then
-  echo "yarn not found"
-  while true; do
-    read -rp "Do you wish to install yarn from npm? y/n" yn
-    case $yn in
-        [Yy]* ) sudo npm i -g yarn; break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-  done
-fi
-yarn
-popd
+name="${PWD##*/}" # no clue why this works
 
-touch .setup
+__read_project_name() {
+  __validate "$name" && display="($name) " || name="" display=""
+  while :
+  do
+    read -rp "Enter a project name: $display" tmp_name
+    if [[ -z "$tmp_name" ]] && [[ -z "$name" ]]; then
+      >&2 echo "Only names that match '^[a-z]([a-z0-9]|-+[a-z0-9])*$' are allowed."
+    else
+      [[ -z "$tmp_name" ]] || name="$tmp_name"
+      break
+    fi
+  done
+}
+
+__read_project_name
+echo "$name"
