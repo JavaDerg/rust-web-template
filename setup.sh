@@ -51,7 +51,7 @@ copy_template() {
 replace_placeholders() {
   sed -i "s/%PROJECT-NAME%/$name/g" README.md
   description="$(printf '%q' "$description")"
-  sed -i "s/%PROJECT-DESCRIPTION%/$description/g"
+  sed -i "s/%PROJECT-DESCRIPTION%/$description/g" README.md
 
   sed -i "s/%PROJECT-NAME%/$name/g" Cargo.toml
   sed -i "s/%PROJECT-NAME%/$name/g" js/package.json
