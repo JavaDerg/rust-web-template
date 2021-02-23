@@ -1,7 +1,7 @@
 [package]
-name = "async-video"
+name = "%PROJECT-DESCRIPTION%"
 version = "0.1.0"
-authors = ["post-rex <post-rex@pm.me>"]
+authors = []
 edition = "2018"
 
 [dependencies]

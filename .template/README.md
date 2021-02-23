@@ -10,3 +10,6 @@ Run `./setup.sh` to set up everything you need.
 ### Building
 Just run `./build.sh` to build the server.
 The output you can find in `target/release/`.
+
+#### Notice
+Don't modify this file, it will be removed.
